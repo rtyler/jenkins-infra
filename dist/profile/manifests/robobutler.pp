@@ -4,9 +4,8 @@
 #
 class profile::robobutler (
   # all injected from hiera
-  # TODO: defining default as undef makes no sense. reconsider this lint check
-  $nick     = undef,
-  $password = undef
+  $nick,
+  $password
 ) {
   include 'docker'
 
