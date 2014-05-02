@@ -25,7 +25,12 @@ class profile::robobutler (
     mode   => '0755'
   }
 
-  file { '/etc/butlerbot.conf':
+  file { '/etc/butlerbot':
+    ensure => directory,
+    owner  => 'butlerbot',
+  }
+
+  file { '/etc/butlerbot/main.conf':
     owner => 'butlerbot',
     mode  => '0600',
     content => "export NICK=${nick}\nexport PASSWORD=${password}\nexport HTML_DIR=${logdir}"
@@ -38,7 +43,7 @@ class profile::robobutler (
   docker::run { 'butlerbot':
     command  => undef,
     image    => "jenkinsciinfra/butlerbot:${tag}",
-    volumes  => [$logdir, '/etc/butlerbot.conf']
+    volumes  => [$logdir, '/etc/butlerbot']
   }
 
   include 'apache'
