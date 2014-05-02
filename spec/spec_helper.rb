@@ -18,7 +18,8 @@ RSpec.configure do |c|
   c.hiera_config = File.join(FIXTURES_PATH, 'hiera.yaml')
   c.default_facts = {
     :osfamily => 'Debian',
-    :lsbdistid => 'Ubuntu'
+    :lsbdistid => 'Ubuntu',
+    :operatingsystemrelease => '12.04'
   }
 
   c.before(:each) do
