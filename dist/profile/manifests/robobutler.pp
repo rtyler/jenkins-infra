@@ -8,7 +8,7 @@ class profile::robobutler (
   $password,
   $logdir = '/var/www/meetings.jenkins-ci.org'
 ) {
-  $tag = 'build9'
+  $tag = 'build10'
 
   include 'docker'
 
