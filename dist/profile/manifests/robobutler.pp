@@ -8,6 +8,8 @@ class profile::robobutler (
   $password,
   $logdir = '/var/lib/butlerbot'
 ) {
+  $tag = 'build9'
+
   include 'docker'
 
   # butlerbot user id. hard-coded into butlerbot image
@@ -30,13 +32,13 @@ class profile::robobutler (
   }
 
   docker::image { 'jenkinsciinfra/butlerbot':
-    image_tag => 'build9',
+    image_tag => $tag,
   }
 
   docker::run { 'butlerbot':
     command  => undef,
     use_name => true,
-    image    => 'jenkinsciinfra/butlerbot',
+    image    => "jenkinsciinfra/butlerbot:${tag}",
     volumes  => [$logdir, '/etc/butlerbot.conf']
   }
 }
