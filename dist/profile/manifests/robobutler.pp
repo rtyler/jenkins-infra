@@ -10,20 +10,32 @@ class profile::robobutler (
 ) {
   include 'docker'
 
+  # butlerbot user id. hard-coded into butlerbot image
+  $uid = 500
+  user { 'butlerbot':
+    uid   => $uid,
+    shell => '/bin/false'
+  }
+
   file { $logdir:
     ensure => directory,
-    owner  => 500,
+    owner  => 'butlerbot',
     mode   => '0755'
   }
 
+  file { '/etc/butlerbot.conf':
+    owner => 'butlerbot',
+    mode  => '0600',
+    content => "export NICK=${nick}\nexport PASSWORD=${password}\nexport HTML_DIR=${logdir}"
+  }
+
   docker::image { 'jenkinsciinfra/butlerbot':
-    image_tag => 'build7',
+    image_tag => 'build8',
   }
 
   docker::run { 'butlerbot':
     command => undef,
     image   => 'jenkinsciinfra/butlerbot',
-    env     => ["NICK=${nick}","PASSWORD=${password}","HTML_DIR==${logdir}"],
-    volumes => [$logdir]
+    volumes => [$logdir, '/etc/butlerbot.conf']
   }
 }
