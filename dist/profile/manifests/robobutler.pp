@@ -49,7 +49,7 @@ class profile::robobutler (
   # 'restart docker-butlerbot' won't do because it will not reload the configuration
   exec { 'restart-butlerbot':
     refreshonly => true,
-    command     => 'stop docker-butlerbot; start docker-butlerbot',
+    command     => '/sbin/stop docker-butlerbot; /sbin/start docker-butlerbot',
   }
 
   File['/etc/init/docker-butlerbot.conf'] ~> Exec['restart-butlerbot']
