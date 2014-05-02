@@ -34,7 +34,7 @@ mod 'reidmv/yamlfile'
 mod 'adrien/filemapper'
 
 mod 'docker', :git => 'git://github.com/jenkins-infra/garethr-docker.git',
-              :ref => '798d830'
+              :ref => '82fd950'
 
 # Deps for docker
 mod 'puppetlabs/apt', '1.4.2'
