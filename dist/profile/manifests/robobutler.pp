@@ -30,7 +30,7 @@ class profile::robobutler (
   }
 
   docker::image { 'jenkinsciinfra/butlerbot':
-    image_tag => 'build8',
+    image_tag => 'build9',
   }
 
   docker::run { 'butlerbot':
