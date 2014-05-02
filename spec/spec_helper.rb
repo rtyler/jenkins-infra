@@ -19,7 +19,8 @@ RSpec.configure do |c|
   c.default_facts = {
     :osfamily => 'Debian',
     :lsbdistid => 'Ubuntu',
-    :operatingsystemrelease => '12.04'
+    :operatingsystemrelease => '12.04',
+    :concat_basedir => '/tmp'
   }
 
   c.before(:each) do
