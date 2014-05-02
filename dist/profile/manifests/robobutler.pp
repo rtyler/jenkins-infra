@@ -6,7 +6,7 @@ class profile::robobutler (
   # all injected from hiera
   $nick,
   $password,
-  $logdir = '/var/lib/butlerbot'
+  $logdir = '/var/www/meetings.jenkins-ci.org'
 ) {
   $tag = 'build9'
 
@@ -40,5 +40,10 @@ class profile::robobutler (
     use_name => true,
     image    => "jenkinsciinfra/butlerbot:${tag}",
     volumes  => [$logdir, '/etc/butlerbot.conf']
+  }
+
+  include 'apache'
+  jenkins_apache::virtualhost { 'meetings.jenkins-ci.org':
+    content => template('jenkins_apache/standard_virtualhost.erb'),
   }
 }
