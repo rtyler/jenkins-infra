@@ -44,7 +44,6 @@ class profile::robobutler (
     command  => undef,
     image    => "jenkinsciinfra/butlerbot:${tag}",
     volumes  => ["${logdir}:${logdir}", '/etc/butlerbot:/etc/butlerbot'],
-    notify   => Exec['restart-butlerbot'],
   }
 
   # 'restart docker-butlerbot' won't do because it will not reload the configuration
@@ -52,6 +51,8 @@ class profile::robobutler (
     refreshonly => true,
     command     => 'stop docker-butlerbot; start docker-butlerbot',
   }
+
+  File['/etc/init/docker-butlerbot.conf'] ~> Exec['restart-butlerbot']
 
   include 'apache'
   jenkins_apache::virtualhost { 'meetings.jenkins-ci.org':
