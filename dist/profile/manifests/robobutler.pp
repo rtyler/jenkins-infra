@@ -34,8 +34,9 @@ class profile::robobutler (
   }
 
   docker::run { 'butlerbot':
-    command => undef,
-    image   => 'jenkinsciinfra/butlerbot',
-    volumes => [$logdir, '/etc/butlerbot.conf']
+    command  => undef,
+    use_name => true,
+    image    => 'jenkinsciinfra/butlerbot',
+    volumes  => [$logdir, '/etc/butlerbot.conf']
   }
 }
