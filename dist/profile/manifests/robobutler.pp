@@ -31,8 +31,8 @@ class profile::robobutler (
   }
 
   file { '/etc/butlerbot/main.conf':
-    owner => 'butlerbot',
-    mode  => '0600',
+    owner   => 'butlerbot',
+    mode    => '0600',
     content => "export NICK=${nick}\nexport PASSWORD=${password}\nexport HTML_DIR=${logdir}"
   }
 
