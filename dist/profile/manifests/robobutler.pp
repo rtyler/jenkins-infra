@@ -43,7 +43,14 @@ class profile::robobutler (
   docker::run { 'butlerbot':
     command  => undef,
     image    => "jenkinsciinfra/butlerbot:${tag}",
-    volumes  => ["${logdir}:${logdir}", '/etc/butlerbot:/etc/butlerbot']
+    volumes  => ["${logdir}:${logdir}", '/etc/butlerbot:/etc/butlerbot'],
+    notify   => Exec['restart-butlerbot'],
+  }
+
+  # 'restart docker-butlerbot' won't do because it will not reload the configuration
+  exec { 'restart-butlerbot':
+    refreshonly => true,
+    command     => 'stop docker-butlerbot; start docker-butlerbot',
   }
 
   include 'apache'
