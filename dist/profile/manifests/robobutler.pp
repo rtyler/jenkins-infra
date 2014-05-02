@@ -43,7 +43,7 @@ class profile::robobutler (
   docker::run { 'butlerbot':
     command  => undef,
     image    => "jenkinsciinfra/butlerbot:${tag}",
-    volumes  => [$logdir, '/etc/butlerbot']
+    volumes  => ["${logdir}:${logdir}", '/etc/butlerbot:/etc/butlerbot']
   }
 
   include 'apache'
