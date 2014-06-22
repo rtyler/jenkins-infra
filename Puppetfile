@@ -70,3 +70,6 @@ mod 'nanliu/staging', '0.4.0'
 
 # For managing server-side ssh configuration options
 mod 'saz/ssh', '2.3.6'
+
+# For collecting metrics
+mod 'pdxcat/collectd', '2.1.0'
