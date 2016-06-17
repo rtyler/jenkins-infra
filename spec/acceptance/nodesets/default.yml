@@ -5,16 +5,23 @@ HOSTS:
       - database
       - dashboard
     platform: ubuntu-14.04-amd64
-    #image: ubuntu:14.04
-    image: electrical/ubuntu:14.04
-    hypervisor: docker
+    vmname: ubuntu-14.04-west
+    hypervisor: ec2
+    amisize: m3.medium
+    snapshot: pe
+    ssh:
+      user: ubuntu
+
   ubuntu-14-04-agent:
     roles:
       - agent
     platform: ubuntu-14.04-amd64
-    #image: ubuntu:14.04
-    image: electrical/ubuntu:14.04
-    hypervisor: docker
+    snapshot: pe
+    vmname: ubuntu-14.04-west
+    hypervisor: ec2
+    amisize: m3.medium
+    ssh:
+      user: ubuntu
 
 CONFIG:
   type: pe
