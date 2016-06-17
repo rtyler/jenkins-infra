@@ -13,23 +13,19 @@ RSpec.configure do |c|
   c.formatter = :documentation
 
   c.before :suite do
-    install_pe
-    # Install module to all hosts
-    hosts.each do |host|
-      next
+    hosts_as('master').each do |host|
+      module_fixtures = [module_root, 'spec', 'fixtures', 'modules'].join(File::SEPARATOR)
 
-      dist_dir = File.join(module_root, 'dist')
-      Dir.foreach(dist_dir) do |d|
-        module_dir = File.join(dist_dir, d)
+      Dir.foreach(module_fixtures) do |dir|
+        module_dir = File.join(module_fixtures, dir)
         next unless File.directory? module_dir
-        next if d.start_with? '.'
+        next if dir.start_with? '.'
 
         install_dev_puppet_module_on(host,
           :source => module_dir,
-          :module_name => d,
-          :target_module_path => "/etc/puppet/modules/")
+          :module_name => dir,
+          :target_module_path => "/etc/puppetlabs/code/modules/")
       end
     end
   end
 end
-

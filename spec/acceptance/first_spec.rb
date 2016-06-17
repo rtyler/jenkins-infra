@@ -1,14 +1,12 @@
 require 'spec_helper_acceptance'
 
-describe 'a simple test' do
-  hosts_as('agent').each do |host|
-    let(:manifest) do
-      'include role::spinach'
-    end
+describe 'a simple test', :confine => {:role => 'agent'} do
+  let(:manifest) do
+    'include role::spinach'
+  end
 
-    describe package('mysql-server') do
-      it { is_expected.to be_installed }
-    end
+  describe package('mysql-server') do
+    it { is_expected.to be_installed }
   end
 
   #it 'should apply the manifest cleanly' do
