@@ -1,0 +1,14 @@
+HOSTS:
+  ubntu-14-04:
+    roles:
+      - master
+      - database
+      - dashboard
+      - agent
+    platform: ubuntu-14.04-amd64
+    image: ubuntu:14.04
+    hypervisor: docker
+
+CONFIG:
+  masterless: false
+  log_level: verbose
