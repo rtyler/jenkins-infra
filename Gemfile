@@ -5,6 +5,7 @@ gem 'rspec-puppet'
 gem 'parallel_tests'
 # Needed for integration tests
 gem 'beaker'
+gem 'beaker-rspec'
 # This gem is like, never released
 gem 'puppet-lint', :github => 'rodjek/puppet-lint',
                    :ref => '2546fed6be894bbcff15c3f48d4b6f6bc15d94d1'
