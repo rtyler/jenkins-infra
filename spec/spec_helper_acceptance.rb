@@ -13,8 +13,7 @@ RSpec.configure do |c|
   c.formatter = :documentation
 
   c.before :suite do
-    fetch_pe(hosts)
-    install_pe(hosts)
+    install_pe
     # Install module to all hosts
     hosts.each do |host|
       next
