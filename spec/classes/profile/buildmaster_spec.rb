@@ -39,6 +39,8 @@ describe 'profile::buildmaster' do
     end
   end
 
+  it { should contain_file('/var/lib/jenkins/.ssh').with_ensure(:directory) }
+
 
   context 'with letsencrypt => false' do
     let(:facts) { {:environment => 'production' } }

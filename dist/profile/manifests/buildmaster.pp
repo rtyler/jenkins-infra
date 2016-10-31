@@ -87,15 +87,19 @@ class profile::buildmaster(
   }
 
   $script_dir = '/usr/share/jenkins'
-  file { $script_dir:
+  $ssh_dir = '/var/lib/jenkins/.ssh'
+
+  file { [$script_dir, $ssh_dir]:
     ensure => directory,
   }
 
-  $ssh_dir = '/var/lib/jenkins/.ssh'
   $ssh_cli_key = 'jenkins-cli-key'
 
   exec { 'generate-cli-ssh-key':
-    require => File['/var/lib/jenkins'],
+    require => [
+        File['/var/lib/jenkins'],
+        File[$ssh_dir],
+    ],
     creates => "${ssh_dir}/${ssh_cli_key}",
     command => "/usr/bin/ssh-keygen -b 4096 -q -f ${ssh_dir}/${ssh_cli_key} -N ''",
   }
