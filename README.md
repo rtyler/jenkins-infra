@@ -1,10 +1,9 @@
 # Jenkins Infra
 
-[![Build
-Status](https://jenkins.ci.cloudbees.com/buildStatus/icon?job=infra/jenkins-infra)](https://jenkins.ci.cloudbees.com/job/infra/job/jenkins-infra/)
+[![Build Status](https://ci.jenkins.io/job/Infra/jenkins-infra/production/badge/icon)](https://ci.jenkins.io/job/Infra/jenkins-infra/production)
 
 This repository is the [r10k](https://github.com/adrienthebo/r10k) control
-repository for the [Jenkins](https://jenkins-ci.org) project's own
+repository for the [Jenkins](https://jenkins.io) project's own
 infrastructure.
 
 ## Local development
@@ -52,10 +51,13 @@ To just rerun serverspect without puppet, `vagrant provision --provision-with se
 When it's all done, deprovision the instance via `vagrant destroy ROLE`.
 
 ### Updating dependencies
-For reasons that Tyler will hopefully clarify at some point, this module maintains
-the list of Puppet module dependencies in `Puppetfile` and `.fixtures.yml`. They
-need to be kept in sync. When you modify them, you can have the local environment
-reflect changes by running `bundle exec rake resolve`.
+
+This module maintains the list of Puppet module dependencies in `Puppetfile`
+and `.fixtures.yml`. The `Puppetfile` is used by r10k for provisioning whereas
+`.fixtures.yml` is only used by the rspec-puppet system to ensure that
+appropriate module dependencies are present when compiling catalogues. They
+need to be kept in sync. When you modify them, you can have the local
+environment reflect changes by running `bundle exec rake resolve`.
 
 ## Branching model
 
