@@ -46,10 +46,8 @@ class profile::buildmaster(
     # Preventing the jenkins module from managing the package for us, since
     # we're using the Docker container, see:
     # https://issues.jenkins-ci.org/browse/INFRA-916
-    version        => absent,
-    repo           => false,
-    service_enable => false,
-    service_ensure => stopped,
+    version => absent,
+    repo    => false,
   }
 
   docker::run { 'jenkins':
@@ -73,6 +71,9 @@ class profile::buildmaster(
     ports            => ['8080:8080', '50000:50000'],
     volumes          => ['/var/lib/jenkins:/var/jenkins_home'],
     pull_on_start    => true,
+    # prevent the service from prefixing with 'docker-' that way puppet-jenkins
+    # will cope without having a service floating around
+    service_prefix   => '',
     require          => [
         File['/var/lib/jenkins'],
         User['jenkins'],
@@ -102,6 +103,22 @@ class profile::buildmaster(
     ],
     creates => "${ssh_dir}/${ssh_cli_key}",
     command => "/usr/bin/ssh-keygen -b 4096 -q -f ${ssh_dir}/${ssh_cli_key} -N ''",
+  }
+
+
+  # Provision a built-in jenkins role account for executing the idempotent-cli
+  # with. This will ensure that the Puppet agent always is able to run commands
+  # against the CLI with a known valid user inside Jenkins's built-in user
+  # system
+  jenkins::user { 'jenkins' :
+    ensure     => present,
+    email      => "no-reply@${ci_fqdn}",
+    password   => generate('/bin/sh', '-c', "mkpasswd -m sha-512 ${ci_fqdn} | tr -d '\n'"),
+    full_name  => 'Mr Jenkins (Managed by Puppet)',
+    public_key => "`cat ${ssh_cli_key}`",
+    require    => [
+        Exec['generate-cli-ssh-key'],
+    ],
   }
 
   $cli_script = "${script_dir}/idempotent-cli"

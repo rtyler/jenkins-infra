@@ -9,7 +9,6 @@ describe 'profile::buildmaster' do
   end
 
   context 'Jenkins configuration' do
-    it { should contain_class 'jenkins' }
     it { should contain_file('/var/lib/jenkins/hudson.plugins.git.GitSCM.xml') }
 
     # https://issues.jenkins-ci.org/browse/INFRA-916
@@ -25,6 +24,10 @@ describe 'profile::buildmaster' do
           :volumes => ['/var/lib/jenkins:/var/jenkins_home'],
         })
       end
+    end
+
+    context 'creating the `jenkins` user inside jenkins itself' do
+      it { should contain_jenkins__user 'jenkins' }
     end
   end
 
