@@ -72,7 +72,6 @@ nagios      3600    IN    CNAME    lettuce
 kale        3600    IN    CNAME    ec2-184-73-58-254.compute-1.amazonaws.com.   ; contributed by Red Hat
 repo        3600    IN    CNAME    jenkinsci.jfrog.org.      ; Artifactory hosted by JFrog
 links       3600    IN    CNAME    rhs.reddit.com.           ; /r/jenkinsci
-;fallback    3600    IN    CNAME    spinach
 plugin-generator    3600 IN  CNAME jpi-create.jenkins.cloudbees.net.    ; hosted app on CloudBees RUN@cloud
 goto        3600    IN    CNAME    goto.jenkins.cloudbees.net.          ; hosted app on CloudBees RUN@cloud
 recipe      3600    IN    CNAME    recipe.jenkins.cloudbees.net.        ; hosted app on CloudBees RUN@cloud
